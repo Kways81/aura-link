@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import AuraOverlay from "@/components/AuraOverlay";
-import CustomCursor from "@/components/CustomCursor";
+
+const CustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
 
 const inter = Inter({
   subsets: ["latin"],
