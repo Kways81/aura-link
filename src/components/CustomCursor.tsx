@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   
@@ -15,7 +16,7 @@ export default function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    if (!isClient) return;
+    if (!isMounted) return;
     
     const updateMousePosition = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
@@ -69,14 +70,14 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition);
       observer.disconnect();
     };
-  }, [cursorX, cursorY, isClient]);
+  }, [cursorX, cursorY, isMounted]);
 
-  // Set isClient to true after mount
+  // Set isMounted to true after mount
   useEffect(() => {
-    setIsClient(true);
+    setIsMounted(true);
   }, []);
 
-  if (!isClient) return null;
+  if (!isMounted) return null;
 
   return (
     <motion.div

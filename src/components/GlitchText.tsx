@@ -17,8 +17,8 @@ export default function GlitchText({ text, isActive, className = "" }: GlitchTex
   const [displayText, setDisplayText] = useState(text);
   const [isGlitching, setIsGlitching] = useState(false);
   const [hasScrambled, setHasScrambled] = useState(false);
-  const scrambleTimeoutRef = useRef<NodeJS.Timeout>();
-  const glitchIntervalRef = useRef<NodeJS.Timeout>();
+  const scrambleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const glitchIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Scramble effect when text enters viewport and becomes active
   useEffect(() => {
