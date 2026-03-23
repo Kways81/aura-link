@@ -15,7 +15,7 @@ export default function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    setIsClient(true);
+    if (!isClient) return;
     
     const updateMousePosition = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
@@ -69,7 +69,12 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition);
       observer.disconnect();
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, isClient]);
+
+  // Set isClient to true after mount
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (!isClient) return null;
 
